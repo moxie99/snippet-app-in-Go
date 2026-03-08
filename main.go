@@ -22,7 +22,17 @@ func showSnippet(w http.ResponseWriter, r *http.Request) {
 func createSnippet(w http.ResponseWriter, r *http.Request) {
 
 	if r.Method != "POST" {
-		w.Header().Set("Allow", "POST")
+		// Set a new cache-control header. If an existing Cache-Control header exists 
+// it will be overwritten. 
+w.Header().Set( Cache-Control, public, max-age=31536000) 
+// In contrast, the Add() method appends a new Cache-Control header and can 
+// be called multiple times. 
+w.Header().Add( Cache-Control, public) 
+w.Header().Add( Cache-Control, max-age=31536000) 
+// Delete all values for the Cache-Control header. 
+w.Header().Del( Cache-Control) 
+// Retrieve the first value for the Cache-Control header. 
+w.Header().Get( Cache-Control)
 		http.Error(w, "Method not allowed", 405)
 		return
 	}
